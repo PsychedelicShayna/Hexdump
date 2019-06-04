@@ -1,6 +1,6 @@
 # Hexdump
 
-This is a hexdump utility as simple as it gets.
+This is a cross-platform hexdump utility composing of a single file. This is as lightweight and portable as it gets. The architecture (32/64) can be changed in the makefile before running it.
 
 ### File Example
 ```
