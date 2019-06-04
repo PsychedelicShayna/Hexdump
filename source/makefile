@@ -1,60 +1,12 @@
+binary = hexdump.exe
+objects = main.o
+stlver = c++14
+target = 32
 
-tus = main.cc dumper.cc argproc.cc utils.cc
-obj = main.o dumper.o argproc.o utils.o
-bin = hexdump.exe
-cmd = g++
-stl = c++17
+../build/x$(target)/$(binary): $(addprefix ../build/x$(target)/objects/, $(objects))
+	mkdir -p ../build/x$(target)/
+	clang++ ../build/x$(target)/objects/*.o -o ../build/x$(target)/$(binary) -std=$(stlver) -m$(target)
 
-build: $(obj)
-	# BUILDING OBJECT FILES INTO BIN FILE
-	# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	$(cmd) $(obj) -o $(bin) -std=$(stl)
-	# /////////////////////////////////////////////////////////////////////////////
-
-compile:
-	#
-	# RE-COMPILING ALL TRANSLATION UNITS
-	# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	$(cmd) -c $(tus) -std=$(stl)
-	# /////////////////////////////////////////////////////////////////////////////
-	#
-
-main.o: main.cc
-	#
-	# RE-COMPILING MAIN.CC
-	# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	$(cmd) -c main.cc -std=$(stl) 
-	# /////////////////////////////////////////////////////////////////////////////
-	#
-    
-dumper.o: dumper.cc headers/dumper.hh
-	#
-	# RE-COMPILING DUMPER.CC
-	# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	$(cmd) -c dumper.cc -std=$(stl) 
-	# /////////////////////////////////////////////////////////////////////////////
-	#
-    
-argproc.o: argproc.cc headers/argproc.hh
-	#
-	# RE-COMPILING ARGPROC.CC
-	# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	$(cmd) -c argproc.cc -std=$(stl) 
-	# /////////////////////////////////////////////////////////////////////////////
-	#
-	
-utils.o: utils.cc headers/utils.hh
-	#
-	# RE-COMPILING UTILS.CC
-	# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	$(cmd) -c utils.cc -std=$(stl) 
-	# /////////////////////////////////////////////////////////////////////////////
-	#
-clean:
-	#
-	# DELETING ALL OBJECT FILES, AND BUILDING ALL TRANSLATION UNITS
-	# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	rm *.o -f
-	rm *.i -f
-	# /////////////////////////////////////////////////////////////////////////////
-	#
+../build/x$(target)/objects/main.o: main.cxx
+	mkdir -p ../build/x$(target)/objects
+	clang++ main.cxx -c -o ../build/x$(target)/objects/main.o -std=$(stlver) -m$(target)
