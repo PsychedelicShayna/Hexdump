@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
                 
                 input_stream.close();
             } else { // Otherwise print an error message to cerr, and return 1, exiting the program.
-                std::cerr << "Could not open file \"" << argument << "\", stream wasn't good." << std::endl;
+                std::cerr << "Could not open file \"" << argv[i+1] << "\", stream wasn't good." << std::endl;
                 return 1; 
             }
         }
